@@ -1,0 +1,29 @@
+
+{% load hitcount_tags %}
+{% if results|length %}
+
+	{% for article in results %}
+	    		
+			<div class="col-md-12">
+				<div class="blog-entry d-md-flex">
+					<a href="{{article.get_single_url}}" class="img img-2" style="background-image: url({{article.image.url}});"></a>
+					<div class="text text-2 pl-md-4">
+	              		<h3 class="mb-2"><a href="{{article.get_single_url}}">{{article.title}}</a></h3>
+		              <div class="meta-wrap">
+							<p class="meta">
+			              		<span><i class="icon-calendar mr-2"></i>{{article.posted_on}}</span>
+			              		<span><a href="{% url 'category' pk=article.category.id %}"><i class="icon-folder-o mr-2"></i>{{article.category.name}}</a></span>
+			              		<span><i class="fa fa-eye mr-2"></i>{% get_hit_count for article %}</span>
+		              		</p>
+	              		</div>
+	              	<p class="mb-4">{{article.body|truncatechars:60}}</p>
+	              	<p><a href="{{article.get_single_url}}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+	            	</div>
+				</div>
+			</div>
+	{% endfor %}
+
+{% else %}
+<h1>No Search Result</h1>
+
+{% endif %}

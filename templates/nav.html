@@ -1,0 +1,20 @@
+		{% url 'some_urlpattern_name' as url %}
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
+			<nav id="colorlib-main-menu" role="navigation">
+				<ul>
+					<li {% if request.path == "/" %} class="colorlib-active"{% endif %}><a href="{% url 'index' %}">Home</a></li>
+					<li {% if request.path == "/about" %} class="colorlib-active"{% endif %} ><a href="{% url 'about' %}">About</a></li>
+					<li {% if request.path == "/contact" %} class="colorlib-active"{% endif %}><a href="{% url 'contact' %}">Contact</a></li>
+					
+					{% if request.user.is_authenticated %}
+						<li {% if request.path == "/profile" %} class="colorlib-active"{% endif %}><a href="{% url 'profile' %}">profile</a></li>
+						<li><a href="{% url 'logout' %}">Logout</a></li>
+					{% else %}
+						<li><a href="{% url 'login' %}">Login</a></li>
+						<li><a href="{% url 'register' %}">Register</a></li>
+					{% endif %}
+
+				</ul>
+			</nav>
+
+		</aside> <!-- END COLORLIB-ASIDE -->

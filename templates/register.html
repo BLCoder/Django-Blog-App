@@ -1,0 +1,132 @@
+<!--
+
+{% if messages%}
+
+{% for message in messages%}
+<div class="alert alert-{{message.tags}}">
+    {{message}}
+</div>
+{%endfor%}
+
+{% endif %}
+
+
+
+
+
+
+<form action="" method="POST">
+{% csrf_token %}
+
+{% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+
+<button type="submit" class="btn btn-default">Login</button>
+</form>
+
+
+-->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% load static %}
+
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'auth/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'auth/css/material-design-iconic-font.min.css' %}">
+    <style type="text/css">
+        .signup-form {
+            margin-right: 0px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                        	{% csrf_token %}
+                            <div class="form-group">
+                                <label for="name"><i class="fa fa-user material-icons-name"></i></label>
+                                {{form.first_name}}
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="fa fa-user material-icons-name"></i></label>
+                                {{form.last_name}}
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="fa fa-user-o material-icons-name"></i></label>
+                                {{form.username}}
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="fa fa-envelope"></i></label>
+                                {{form.email}}
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="fa fa-lock"></i></label>
+                                {{form.password1}}
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="fa fa-lock-outline"></i></label>
+                                {{form.password2}}
+                            </div>
+            
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <div class="social-login" style="margin-left: 163px;margin-top: -41px;">
+                                    <span class="social-label">Or signup with</span>
+                                    <ul class="socials">
+                                    <li><a href="{% url 'social:begin' 'facebook' %}"><i style=" background: #3b5998;color: #fff" class="display-flex-center fa fa-facebook"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+
+                        </form>
+
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="{% static 'auth/images/signup-image.jpg' %}" alt="sing up image"></figure>
+                        <a href="{% url 'login' %}" class="signup-image-link">I am already member</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+   
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'auth/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'auth/js/main.js' }"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

@@ -1,0 +1,144 @@
+
+<!--
+
+{% if messages%}
+
+{% for message in messages%}
+<div class="alert alert-{{message.tags}}">
+    {{message}}
+</div>
+{%endfor%}
+
+{% endif %}
+
+
+<form action="" method="POST">
+{% csrf_token %}
+
+{% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+
+<button type="submit" class="btn btn-default">Login</button>
+
+
+</form>
+
+<a href="{% url 'social:begin' 'facebook' %}">Signin With Facebook</a>
+
+
+
+-->
+
+
+
+
+<!--
+
+{% if messages%}
+
+{% for message in messages%}
+<div class="alert alert-{{message.tags}}">
+    {{message}}
+</div>
+{%endfor%}
+
+{% endif %}
+
+
+
+
+
+
+<form action="" method="POST">
+{% csrf_token %}
+
+{% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+
+<button type="submit" class="btn btn-default">Login</button>
+</form>
+
+
+-->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign In Form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'auth/css/style.css' %}">
+
+</head>
+<body>
+
+    <div class="main">
+	    <section class="sign-in">
+	        <div class="container">
+	            <div class="signin-content">
+	                <div class="signin-image">
+	                    <figure><img src="{% static 'auth/images/signin-image.jpg' %}" alt="sing up image"></figure>
+	                    <a href="{% url 'register' %}" class="signup-image-link">Create an account</a>
+	                </div>
+
+	                <div class="signin-form">
+	                    <h2 class="form-title">Sign in</h2>
+	                    <form method="POST" class="register-form" id="login-form">
+	                    	{% csrf_token %}
+	                        <div class="form-group">
+	                            <label for="your_name"><i class="fa fa-user material-icons-name"></i></label>
+	                            {{form.username}}
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="your_pass"><i class="fa fa-lock"></i></label>
+	                            {{form.password}}
+	                        </div>
+	<!--                             <div class="form-group">
+	                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+	                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+	                        </div> -->
+	                        <div class="form-group form-button">
+	                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+	                        </div>
+	                    </form>
+	                    <div class="social-login">
+	                        <span class="social-label">Or login with</span>
+	                        <ul class="socials">
+	                            <li><a href="{% url 'social:begin' 'facebook' %}"><i style=" background: #3b5998;color: #fff" class="display-flex-center fa fa-facebook"></i></a></li>
+	                        </ul>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </section>
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'auth/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'auth/js/main.js' }"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

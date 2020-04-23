@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block content%}
+
+<div class="col-xl-8 py-5 px-md-5">
+	<div class="row pt-md-4">
+		<form action="" method="post">{% csrf_token %}
+		    <p>Are you sure you want to delete?</p>
+		    <button class="btn btn-outline-danger" type="submit">Confirm</button>
+		    <a class="btn btn-outline-secondary" href="{% url 'profile' %}">No</a>
+		</form>											
+	</div><!-- END-->
+</div>
+
+{% endblock%}

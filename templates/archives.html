@@ -1,0 +1,91 @@
+
+{% extends 'base.html'%}
+
+{% load static %}
+{% load hitcount_tags %}
+{% block content%}
+
+<div class="col-xl-8 py-5 px-md-5">
+	    				<div class="row pt-md-4">
+
+
+	    				{% for article in object_list%}
+	    		
+			    			<div class="col-md-12">
+									<div class="blog-entry ftco-animate d-md-flex">
+										<a href="{{article.get_single_url}}" class="img img-2" style="background-image: url({{article.image.url}});"></a>
+										<div class="text text-2 pl-md-4">
+				              <h3 class="mb-2"><a href="{{article.get_single_url}}">{{article.title}}</a></h3>
+				              <div class="meta-wrap">
+												<p class="meta">
+				              		<span><i class="icon-calendar mr-2"></i>{{article.posted_on}}</span>
+				              		<span><a href="{% url 'category' pk=article.category.id %}"><i class="icon-folder-o mr-2"></i>{{article.category.name}}</a></span>
+				              		<span><i class="fa fa-eye mr-2"></i>{% get_hit_count for article %}</span>
+				              	</p>
+			              	</div>
+				              <p class="mb-4">{{article.body|truncatechars:60}}</p>
+				              <p><a href="{{article.get_single_url}}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+				            </div>
+									</div>
+								</div>
+						{% endfor %}
+							
+							
+			    		</div><!-- END-->
+	
+			    	</div>
+
+{% endblock%}
+
+
+{% block popular_archive %}
+<div class="col-xl-4 sidebar ftco-animate bg-light pt-5">
+	            <div class="sidebar-box ftco-animate">
+	            	<h3 class="sidebar-heading">Categories</h3>
+	              <ul class="categories">
+
+	              	{% for cat in category%}
+	                <li><a href="{{cat.get_category_url}}">{{cat.name}}<span> {{cat.articles_count}} </span></a></li>
+	                {% endfor %}
+	               
+	              </ul>
+	            </div>
+	<div class="sidebar-box ftco-animate">
+	              <h3 class="sidebar-heading">Popular Articles</h3>
+	              {% for popular_article in popular_articles %}
+		              <div class="block-21 mb-4 d-flex">
+		                <a class="blog-img mr-4" style="background-image: url({{popular_article.image.url}});"></a>
+		                <div class="text">
+		                  <h3 class="heading"><a href="{{popular_article.get_single_url}}">{{popular_article.title}}</a></h3>
+		                  <div class="meta">
+		                    <div><a href="#"><span class="icon-calendar"></span> {{popular_article.posted_on}}</a></div>
+		                    <div><a href="#"><span class="icon-person"></span> {{popular_article.article_author.username}}</a></div>
+		                    <div><span class="fa fa-eye"></span> {% get_hit_count for popular_article %}</div>
+		                  </div>
+		                </div>
+		              </div>
+	              {% endfor %}
+
+	            <div class="sidebar-box ftco-animate">
+	            	<h3 class="sidebar-heading">Archives</h3>
+	              <ul class="categories">
+
+	              	{% regroup all_posts by posted_on.year as year_list %}
+
+	              	{% for year in year_list %}
+
+		              	{% regroup year.list by posted_on.month as month_list %}
+
+		              	{% for month in month_list %}
+
+		              		<li><a href="{% url 'post_archive_month' year.grouper month.grouper %}">{{ month.list.0.posted_on|date:'b' }} {{ year.grouper }} <span>({{ month.list|length }})</span></a></li>
+
+		              	{% endfor %}
+
+	              	{% endfor %}
+
+	              </ul>
+	            </div>
+	          </div><!-- END COL -->
+	      </div>
+{% endblock %}
